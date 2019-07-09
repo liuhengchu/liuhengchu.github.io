@@ -43,10 +43,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/icon.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">一初</a></h1>
 		</hgroup>
 		
 
@@ -101,10 +101,10 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/icon.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">一初</h1>
 			</hgroup>
 			
 			
@@ -152,39 +152,43 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/07/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/07/09/JVM/">JVM</a>
     </h1>
   
 
         
-        <a href="/2019/07/07/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-07T08:05:14.251Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
+        <a href="/2019/07/09/JVM/" class="archive-article-date">
+  	<time datetime="2019-07-09T11:12:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>JVM内存各部分存放信息</p>
+<p>第一块：PC寄存器</p>
+<p>PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。</p>
+<p>第二块：JVM栈</p>
+<p>JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、double）、部分的返回结果以及Stack Frame，非基本类型的对象在JVM栈上仅存放一个指向堆上的地址。</p>
+<p>第三块：堆（Heap）</p>
+<p>它是JVM用来存储对象实例以及数组值的区域，可以认为Java中所有通过new创建的对象的内存都在此分配，Heap中的对象的内存需要等待GC进行回收。</p>
+<p>第四块：方法区（Method Area）</p>
+<p>1.在Sun JDK中这块区域对应的为PermanetGeneration，又称为持久代。</p>
+<p>2.方法区域存放了所加载的类的信息（名称、修饰符等）、类中的静态变量、类中定义为final类型的常量、类中的Field信息、类中的方法信息，当开发人员在程序中通过Class对象中的getName、isInterface等方法来获取信息时，这些数据都来源于方法区域。</p>
+<p>第五块：运行时常量池（Runtime Constant Pool）方法区的一部分</p>
+<p>存放的为类中的固定的常量信息、方法和Field的引用信息等，其空间从方法区域中分配。</p>
+<p>第六块：本地方法堆栈（Native Method Stacks）</p>
+<p>JVM采用本地方法堆栈来支持native方法的执行，此区域用于存储每个native方法调用的状态。</p>
+<p>GC收集器有哪些？CMS收集器与G1收集器的特点：</p>
+<img src="/2019/07/09/JVM/example.png" title="This is an example image">
+<p>转自:<a href="https://blog.csdn.net/qq_35503221/article/details/80313129" target="_blank" rel="noopener">https://blog.csdn.net/qq_35503221/article/details/80313129</a></p>
 
       
 
@@ -197,7 +201,421 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/07/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/07/09/JVM/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Hbase" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/07/Hbase/">hbase</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/07/Hbase/" class="archive-article-date">
+  	<time datetime="2019-07-07T08:05:14.251Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分布式存储系统：海量数据存储、准实时的查询</p>
+<p>##特点：<br>容量大，相比关系型数据库具有更大的行列；<br>面向列，对于列可以动态增加，且可以按照列操作；<br>多版本，每一个列有多个版本；<br>稀疏性，空列不占用存储空间；<br>扩展性，底层依赖于HDFS；<br>高可靠性，WAL机制，Replication机制保证集群出现问题不会发生丢失和损坏；<br>高性能，底层LSM数据结构和Rowkey有序排列设计使Hbase具有高写入性，region切分，主键索引和缓存机制使Hbase在海量数据下具备一定随机读取性能；</p>
+<p>##服务架构体系<br>zookeeper        分布式协调服务框架<br>RegionServer   管理HDFS表里的数据<br>Master              项目工作状态 管理Region<br>Hbase 依赖的两个外部服务 ：zookeeper、hdfs</p>
+<p>##部署条件<br>jdk 1.7+<br>Hadoop 2.5.x+<br>zookeeper 3.4.x+<br>z</p>
+<p>##列簇<br>Hbase表结构(多种相同类一组)</p>
+<p>##数据模型<br>Row Key -&gt;主键<br>Time Stampe-&gt;时间戳<br>Column Family-&gt;簇<br>限制：一张表的列簇不会超过5个，每个列簇中的列数没有限制，列只有在插入数据后才存在<br>优点：列动态增加、数据自动切分、高并发读写<br>缺点：不支持条件查询 </p>
+<p>##命令 cd bin<br>启动命令-&gt;hbase<br>             -&gt;start-hbase.sh<br>操作命令   hbase shell<br>    create-&gt;create ‘test’ ,’info’ /列名 簇名<br>             -&gt;list /查看表<br>             -&gt;put ‘test’,’0001’,’info:username’,’Liu’<br>             -&gt;scan ‘test’<br>             -&gt;describe ‘test’<br>             -&gt;disable ‘test’ //禁用<br>             -&gt;drop //丢弃<br>             -&gt;get ‘test’.’0001’,’info:username’ //取得数据<br>             -&gt;delete ‘test’.’0001’,’info:username’ //删除<br>             -&gt;truncate //初始化表，清空表数据</p>
+<p>##Rowkey长度原则<br>Rowkey是一个二进制码流，Rowkey的长度被很多开发者建议说设计在10~100个字节，不过建议是越短越好，不要超过16个字节。<br>原因如下：<br>（1）数据的持久化文件HFile中是按照KeyValue存储的，如果Rowkey过长比如100个字节，1000万列数据光Rowkey就要占用100*1000万=10亿个字节，将近1G数据，这会极大影响HFile的存储效率；<br>（2）MemStore将缓存部分数据到内存，如果Rowkey字段过长内存的有效利用率会降低，系统将无法缓存更多的数据，这会降低检索效率。因此Rowkey的字节长度越短越好。<br>3）目前操作系统是都是64位系统，内存8字节对齐。控制在16个字节，8字节的整数倍利用操作系统的最佳特性。<br>转自:<a href="https://blog.csdn.net/qq_38019655/article/details/84107309" target="_blank" rel="noopener">https://blog.csdn.net/qq_38019655/article/details/84107309</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/07/Hbase/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Yarn流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/09/Yarn流程/">Yarn流程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/09/Yarn流程/" class="archive-article-date">
+  	<time datetime="2019-05-09T11:04:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.3  YARN工作流程<br>当用户向YARN中提交一个应用程序后，YARN将分两个阶段运行该应用程序：<br>第一个阶段是启动ApplicationMaster；<br>第二个阶段是由ApplicationMaster创建应用程序，为它申请资源，并监控它的整个运行过程，直到运行完成。<br>如图所示，YARN的工作流程分为以下几个步骤：</p>
+<img src="/2019/05/09/Yarn流程/flow.jpg" title="This is an example image">
+
+<p>步骤1　用户向YARN中提交应用程序，其中包括ApplicationMaster程序、启动ApplicationMaster的命令、用户程序等。<br>步骤2　ResourceManager为该应用程序分配第一个Container，并与对应的Node-Manager通信，要求它在这个Container中启动应用程序的ApplicationMaster。<br>步骤3　ApplicationMaster首先向ResourceManager注册，这样用户可以直接通过ResourceManager查看应用程序的运行状态，然后它将为各个任务申请资源，并监控它的运行状态，直到运行结束，即重复步骤4~7。<br>步骤4　ApplicationMaster采用轮询的方式通过RPC协议向ResourceManager申请和领取资源。<br>步骤5　一旦ApplicationMaster申请到资源后，便与对应的NodeManager通信，要求它启动任务。<br>步骤6　NodeManager为任务设置好运行环境（包括环境变量、JAR包、二进制程序等）后，将任务启动命令写到一个脚本中，并通过运行该脚本启动任务。<br>步骤7　各个任务通过某个RPC协议向ApplicationMaster汇报自己的状态和进度，以让ApplicationMaster随时掌握各个任务的运行状态，从而可以在任务失败时重新启动任务。<br>     在应用程序运行过程中，用户可随时通过RPC向ApplicationMaster查询应用程序的当前运行状态。<br>步骤8　应用程序运行完成后，ApplicationMaster向ResourceManager注销并关闭自己。<br>转自<a href="https://blog.csdn.net/chenchaofuck1/article/details/52090019" target="_blank" rel="noopener">https://blog.csdn.net/chenchaofuck1/article/details/52090019</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/09/Yarn流程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Yarn工作流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/09/Yarn工作流程/">Yarn工作流程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/09/Yarn工作流程/" class="archive-article-date">
+  	<time datetime="2019-04-09T11:08:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<ol>
+<li>client向RM提交应用程序，其中包括启动该应用的ApplicationMaster的必须信息，例如ApplicationMaster程序、启动ApplicationMaster的命令、用户程序等。</li>
+<li>ResourceManager启动一个container用于运行ApplicationMaster。</li>
+<li>启动中的ApplicationMaster向ResourceManager注册自己，启动成功后与RM保持心跳。</li>
+<li>ApplicationMaster向ResourceManager发送请求，申请相应数目的container。</li>
+<li>ResourceManager返回ApplicationMaster的申请的containers信息。申请成功的container，由ApplicationMaster进行初始化。container的启动信息初始化后，AM与对应的NodeManager通信，要求NM启动container。AM与NM保持心跳，从而对NM上运行的任务进行监控和管理。</li>
+<li>container运行期间，ApplicationMaster对container进行监控。container通过RPC协议向对应的AM汇报自己的进度和状态等信息。</li>
+<li>应用运行期间，client直接与AM通信获取应用的状态、进度更新等信息。</li>
+<li>应用运行结束后，ApplicationMaster向ResourceManager注销自己，并允许属于它的container被收回。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/09/Yarn工作流程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/09/Hadoop/">Hadoop</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/09/Hadoop/" class="archive-article-date">
+  	<time datetime="2019-03-09T10:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###Hadoop小记<br>Hive牵引Hadoop任务<br>Hbase 存放数据<br>HDFS 系统</p>
+<p>Hadoop配置<br>–&gt;hadoop-env.sh  :export JAVA_HOME=’’<br>–&gt;core-site.xml     :hadoop.tmp.dir 配置工作目录<br>                              :dfs.name.dir 源数据目录<br>                              :fs.default.name:访问目录<br>–&gt;hdfs-site.xml     :dfs-data.dir:文件系统数据存放位置<br>–&gt;mapred-site.xml:mapred.job.tracker:任务调度器的访问<br>/etc/profile –&gt;hadoop路径</p>
+<p>1.存储切分为块进行存储，默认64mb，是文件存储处理的逻辑单元<br>2.NameNode 是管理节点，存放文件元数据 1.文件与数据块的映射表2.数据块和数据节点的映射表<br>3.DataNode   是HDFS的工作节点，存放数据块</p>
+<p>数据块副本，存在多份冗余（默认保留三份）<br>心跳检测 DataNode定期向NameNode发送状态信息<br>二级NameNode 定期同步元数据映像文件和修改日志，NameNode发生故障时，secondaryNameNode发生作用</p>
+<p>最近看dadoop中关于辅助排序（SecondarySort）的实现，说到了三个东西要设置：1. partioner；2. Key Comparator；3. Group Comparator。前两个都比较容易理解，但是关于group的概念我一直理解不了，一，有了partioner，所有的key已经放到一个分区了，每个分区对应一个reducer，而且key也可以排序了，那么不是实现了整个数据集的全排序了吗？第二，mapper产生的中间结果经过shuffle和sort后，每个key整合成一个记录，每次reduce方法调用处理一个记录，但是group的目的是让一次reduce调用处理多条记录，这不是矛盾吗，找了好久一直都没找到这个问题的清晰解释。<br>后来找到一本书，《Pro Hadoop》，里面有一部分内容详细解释了这个问题，看后终于明白了，和大家分享一下。reduce方法每次是读一条记录，读到相应的key，但是处理value集合时，处理完当前记录的values后，还会判断下一条记录是不是和当前的key是不是同一个组，如果是的话，会继续读取这些记录的值，而这个记录也会被认为已经处理了，直到记录不是当前组，这次reduce调用才结束，这样一次reduce调用就会处理掉一个组中的所有记录，而不仅仅是一条了。<br>这个有什么用呢？如果不用分组，那么同一组的记录就要在多次reduce方法中独立处理，那么有些状态数据就要传递了，就会增加复杂度，在一次调用中处理的话，这些状态只要用方法内的变量就可以的。比如查找最大值，只要读第一个值就可以了。</p>
+<p>转自:<a href="https://blog.csdn.net/hellojoy/article/details/80583456" target="_blank" rel="noopener">https://blog.csdn.net/hellojoy/article/details/80583456</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/09/Hadoop/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/09/Linux/">Linux</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/09/Linux/" class="archive-article-date">
+  	<time datetime="2019-02-09T11:10:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>buffer（缓冲）是为了提高内存和硬盘（或其他I/0设备）之间的数据交换的速度而设计的。<br>cache（缓存）是为了提高cpu和内存之间的数据交换速度而设计，也就是平常见到的一级缓存、二级缓存、三级缓存。<br>cpu在执行程序所用的指令和读数据都是针对内存的，也就是从内存中取得的。由于内存读写速度慢，为了提高cpu和内存之间数据交换的速度，在cpu和内存之间增加了cache，它的速度比内存快，但是造价高，又由于在cpu内不能集成太多集成电路，所以一般cache比较小，以后intel等公司为了进一步提高速度，又增加了二级cache，甚至三级cache，它是根据程序的局部性原理而设计的，就是cpu执行的指令和访问的数据往往在集中的某一块，所以把这块内容放入cache后，cpu就不用在访问内存了，这就提高了访问速度。当然若cache中没有cpu所需要的内容，还是要访问内存的。<br>缓冲（buffers）是根据磁盘的读写设计的，把分散的写操作集中进行，减少磁盘碎片和硬盘的反复寻道，从而提高系统性能。linux有一个守护进程定期清空缓冲内容（即写入磁盘），也可以通过sync命令手动清空缓冲。举个例子吧：我这里有一个ext2的U盘，我往里面cp一个3M的MP3，但U盘的灯没有跳动，过了一会儿（或者手动输入sync）U盘的灯就跳动起来了。卸载设备时会清空缓冲，所以有些时候卸载一个设备时要等上几秒钟。</p>
+<p>　创建进程首先要将程序和数据装入内存。将用户源程序变为可在内存中执行的程序，通常需要以下几个步骤：</p>
+<ul>
+<li>编译：由编译程序将用户源代码编译成若干个目标模块。</li>
+<li>链接：由链接程序将编译后形成的一组目标模块，以及所需库函数链接在一起，形成一个完整的装入模块。</li>
+<li>装入：由装入程序将装入模块装入内存运行。</li>
+</ul>
+<p>连续重发请求ARQ方案是指发送方可以连续发送一系列信息帧，即不用等前一帧被确认便可继续发送下一帧，效率大大提高。但在这种重发请求方案中，需要在发送方设置一个较大的缓冲存储空间（称作重发表），用以存放若干待确认的信息帧。当发送方到对某信息帧的确认帧后，便可从重发表中将该信息帧删除。所以，连续重发请求ARQ方案的链路传输效率大大提高，但相应地需要更大的缓冲存储空间。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/09/Linux/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/01/Java/">Java</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/01/Java/" class="archive-article-date">
+  	<time datetime="2019-01-01T11:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接调用run（）不能启用多线程<br>调用多线程需要start（）方法——&gt;start（）在thread类中</p>
+<p>主要使用 runnable 接口（java单继承，由接口解决问题）<br>Runnable接口 不存在 start方法<br>解决方法：public Thread （Runnable target）构造函数重新方法<br>new Thread(xx).start()<br>数据共享指的是多个线程访问同一个资源的操作</p>
+<p>在生产者和消费者之间会产生数据重复和错位问题<br>注意sleep 和wait的区别？wait需要notify唤醒并且wait是object类定义的方法<br>Cloneable／／加入此接口可以克隆此对象<br>在类的创建中调用复写父类的克隆方法 public Object clone（）<br>克隆的理论意义：标识接口—&gt;接口看不到方法 只表示操作能力<br>BigCecimal 重要的操作—&gt;可以准确的实现四舍五入操作<br>利用除法操作实现四舍五入 divide（被除数，保留小数位，进位模式 ROUND_HALF_UP）<br>//开发时需要使用工具类支持</p>
+<p>SimpleDateFormat 日期格式化， 专门处理格式化日期的工具类 ，可以将Date转换为String格式</p>
+<p>Comparable 接口 在类定义时没有接入，可以通过导入工具类Comparable接口实现相应比较实现。implement Comparable&lt;类&gt;</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/01/Java/">展开全文 >></a>
         </p>
       
 
@@ -237,7 +655,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 一初
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
