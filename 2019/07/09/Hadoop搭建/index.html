@@ -6,21 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JVM | Hexo</title>
+  <title>Hadoop搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JVM内存各部分存放信息 第一块：PC寄存器 PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。 第二块：JVM栈 JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、doubl">
+  <meta name="description" content="HA架构图： NameNode    DateNode    Zookeeper     ZKFailoverController    JournalNode     ResourceManager  192.168.2.201(master1)        1                                            1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM">
-<meta property="og:url" content="http://yoursite.com/2019/07/09/JVM/index.html">
+<meta property="og:title" content="Hadoop搭建">
+<meta property="og:url" content="http://yoursite.com/2019/07/09/Hadoop搭建/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="JVM内存各部分存放信息 第一块：PC寄存器 PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。 第二块：JVM栈 JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、doubl">
+<meta property="og:description" content="HA架构图： NameNode    DateNode    Zookeeper     ZKFailoverController    JournalNode     ResourceManager  192.168.2.201(master1)        1                                            1">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/07/09/JVM/example.png">
-<meta property="og:updated_time" content="2019-07-09T11:12:59.490Z">
+<meta property="og:updated_time" content="2019-07-09T11:38:17.712Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM">
-<meta name="twitter:description" content="JVM内存各部分存放信息 第一块：PC寄存器 PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。 第二块：JVM栈 JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、doubl">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/09/JVM/example.png">
+<meta name="twitter:title" content="Hadoop搭建">
+<meta name="twitter:description" content="HA架构图： NameNode    DateNode    Zookeeper     ZKFailoverController    JournalNode     ResourceManager  192.168.2.201(master1)        1                                            1">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -156,43 +154,78 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Hadoop搭建" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JVM
+      Hadoop搭建
     </h1>
   
 
         
-        <a href="/2019/07/09/JVM/" class="archive-article-date">
-  	<time datetime="2019-07-09T11:12:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
+        <a href="/2019/07/09/Hadoop搭建/" class="archive-article-date">
+  	<time datetime="2019-07-09T11:37:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JVM内存各部分存放信息</p>
-<p>第一块：PC寄存器</p>
-<p>PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。</p>
-<p>第二块：JVM栈</p>
-<p>JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、double）、部分的返回结果以及Stack Frame，非基本类型的对象在JVM栈上仅存放一个指向堆上的地址。</p>
-<p>第三块：堆（Heap）</p>
-<p>它是JVM用来存储对象实例以及数组值的区域，可以认为Java中所有通过new创建的对象的内存都在此分配，Heap中的对象的内存需要等待GC进行回收。</p>
-<p>第四块：方法区（Method Area）</p>
-<p>1.在Sun JDK中这块区域对应的为PermanetGeneration，又称为持久代。</p>
-<p>2.方法区域存放了所加载的类的信息（名称、修饰符等）、类中的静态变量、类中定义为final类型的常量、类中的Field信息、类中的方法信息，当开发人员在程序中通过Class对象中的getName、isInterface等方法来获取信息时，这些数据都来源于方法区域。</p>
-<p>第五块：运行时常量池（Runtime Constant Pool）方法区的一部分</p>
-<p>存放的为类中的固定的常量信息、方法和Field的引用信息等，其空间从方法区域中分配。</p>
-<p>第六块：本地方法堆栈（Native Method Stacks）</p>
-<p>JVM采用本地方法堆栈来支持native方法的执行，此区域用于存储每个native方法调用的状态。</p>
-<p>GC收集器有哪些？CMS收集器与G1收集器的特点：</p>
-<img src="/2019/07/09/JVM/example.png" title="This is an example image">
-<p>转自:<a href="https://blog.csdn.net/qq_35503221/article/details/80313129" target="_blank" rel="noopener">https://blog.csdn.net/qq_35503221/article/details/80313129</a></p>
+        <p>HA架构图：</p>
+<pre><code>NameNode    DateNode    Zookeeper     ZKFailoverController    JournalNode     ResourceManager  </code></pre><p>192.168.2.201(master1)        1                                            1                                    1<br>192.168.2.202(master2)        1                                            1                                    1<br>192.168.2.203(slave1)                     1            1                                       1<br>192.168.2.204(slave2)                     1            1                                       1<br>192.168.2.205(slave3)                     1            1                                       1</p>
+<p>环境搭建如下：</p>
+<p>一、首先设置防火墙防火墙</p>
+<p>1.关闭防火墙service iptables stop<br>2.设置 selinux 将SELINUX 改为disabled</p>
+<p>二、编辑主机名映射</p>
+<p>1.下载 ssh包获取scp命令(centOS6.1自带)<br>2.vi/etc/hosts,完成配置后拷贝至后面四台机器</p>
+<p>demo:scp /etc/hostsmaster2:/etc/hosts</p>
+<p>三、设置五台机器时间同步ntpdate</p>
+<p>1.设置master1与指定时间服务器同步<br>2.ntpdate cn.pool.ntp.org(baidu ntp可以查找公共池)<br>3.设置后面4台机器与master同步<br>  步骤：1.vi /etc/ntp.conf<br>     2.将restrict上的网段改为自己的网段<br>     3.注释server 服务器<br>     4.添加  server  127.127.1.0<br>            fudge   127.127.1.0 stratum 10<br>     5.启动ntpd service ntpd start<br>     6.同步master时间 ntpdate master1</p>
+<p>四、创建普通用户//可略过</p>
+<p>1.adduser hadoop<br>2.passwd hadoop 设置密码</p>
+<p>五、SSH免密登录</p>
+<p>1.在五台机器上都输入ssh-keygen –t rsa,然后一直按回车<br>2.将秘钥拷贝到五台机器上<br>    ssh-copy-id master1<br>    ssh-copy-id master2<br>    ssh-copy-id slave1<br>    ssh-copy-id slave2<br>    ssh-copy-id slave3<br>3.ssh master2 测试通过<br>4.在其他四台机器上重复以上操作</p>
+<p>六、安装jdk</p>
+<p>1.创建 /opt/modules文件夹,上传并解压jdk到modules<br>2.设置环境变变量，root用户下 vi /etc/profile，在最后添加环境变量<br>3.退出并source /etc/profile ,然后输入java -version验证版本<br>4.将java scp至其他几台机器<br>5.将/etc/profile scp至其他几台机器</p>
+<p>七、进入slave1主机,安装配置zookeeper</p>
+<p>1.上传zookeeper并解压到modules<br>2.到zookeeper目录下,mv conf/zoo_sample.cfg zoo.cfg<br>3.进入zoo.cfgv修改dataDir路径，增加server配置信息<br>  1.dataDir = /opt/modules/zookeeper-x.x.x/zkData<br>  2.在目录下创建zkData文件夹并创建myid文件，在slave1输入1<br>    vi /zkDate/myid -&gt;1<br>  3.scp zookeeper文件夹到slave2和slave3下<br>  4.修改slave2和slave3 的myid文件<br>  5.启动zookeeper，并验证状态<br>    在zookeeper目录下 bin/zkServer.sh start<br>  6.在slave2 slave 3同样目录下输入 bin/zkServer.sh start<br>  7.bin/zkServer.sh status 查看状态 mode：fllower(leader)</p>
+<p>八、安装配置hadoop<br>1.上传hadoop到software文件夹，并解压到modules<br>2.配置hadoop环境变量<br>  root vi /etc/profile， 记得source /etc/profile<br>3.修改 etc/hadoop 下的环境变量文件增加java环境变量<br>export JAVA_HOME=/opt/modules/jdk1.7.0_x<br>4.修改hadoop 配置文件<br>hadoop-env.sh<br>mapred-env.sh<br>yarn-env.sh<br>其中：<br>修改core-site.xml文件<br><configuration><br>    <property><br>        <name>fs.defaultFS</name><br>        <value>hdfs://ns1</value><br>    </property><br>    <property><br>        <name>hadoop.tmp.dir</name><br>        <value>/opt/modules/App/hadoop-2.5.0/data/tmp</value><br>    </property><br>    <property><br>        <name>hadoop.http.staticuser.user</name><br>        <value>hadoop</value><br>    </property><br>    <property><br>        <name>ha.zookeeper.quorum</name><br>        <value>slave1:2181,slave2:2181,slave3:2181</value><br>    </property><br></configuration><br>修改hdfs-site.xml文件<br><configuration><br>    <property><br>        <name>dfs.replication</name><br>        <value>3</value><br>    </property><br>    <property><br>        <name>dfs.permissions.enabled</name><br>        <value>false</value><br>    </property><br>    <property><br>        <name>dfs.nameservices</name><br>        <value>ns1</value><br>    </property><br>    <property><br>        <name>dfs.blocksize</name><br>        <value>134217728</value><br>    </property><br>    <property><br>        <name>dfs.ha.namenodes.ns1</name><br>        <value>nn1,nn2</value><br>    </property><br>    <!-- nn1的RPC通信地址，nn1所在地址  --><br>    <property><br>        <name>dfs.namenode.rpc-address.ns1.nn1</name><br>        <value>master1:8020</value><br>    </property><br>    <!-- nn1的http通信地址，外部访问地址 --><br>    <property><br>        <name>dfs.namenode.http-address.ns1.nn1</name><br>        <value>master1:50070</value><br>    </property><br>    <!-- nn2的RPC通信地址，nn2所在地址 --><br>    <property><br>        <name>dfs.namenode.rpc-address.ns1.nn2</name><br>        <value>master2:8020</value><br>    </property><br>    <!-- nn2的http通信地址，外部访问地址 --><br>    <property><br>        <name>dfs.namenode.http-address.ns1.nn2</name><br>        <value>master2:50070</value><br>    </property><br>    <!-- 指定NameNode的元数据在JournalNode日志上的存放位置(一般和zookeeper部署在一起) --><br>    <property><br>        <name>dfs.namenode.shared.edits.dir</name><br>        <value>qjournal://slave1:8485;slave2:8485;slave3:8485/ns1</value><br>    </property><br>    <!-- 指定JournalNode在本地磁盘存放数据的位置 --><br>    <property><br>        <name>dfs.journalnode.edits.dir</name><br>        <value>/opt/modules/hadoop-2.5.0-cdh5.3.6/data/journal</value><br>    </property><br>    <!--客户端通过代理访问namenode，访问文件系统，HDFS 客户端与Active 节点通信的Java 类，使用其确定Active 节点是否活跃  --><br>    <property><br>        <name>dfs.client.failover.proxy.provider.ns1</name><br>        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value><br>    </property><br>    <!--这是配置自动切换的方法，有多种使用方法，具体可以看官网，在文末会给地址，这里是远程登录杀死的方法  --><br>    <property><br>        <name>dfs.ha.fencing.methods</name><br>        <value>sshfence</value><br>    </property><br>    <!-- 这个是使用sshfence隔离机制时才需要配置ssh免登陆 --><br>    <property><br>        <name>dfs.ha.fencing.ssh.private-key-files</name><br>        <value>/home/hadoop/.ssh/id_rsa</value><br>    </property><br>    <!-- 配置sshfence隔离机制超时时间，这个属性同上，如果你是用脚本的方法切换，这个应该是可以不配置的 --><br>    <property><br>        <name>dfs.ha.fencing.ssh.connect-timeout</name><br>        <value>30000</value><br>    </property><br>    <!-- 这个是开启自动故障转移，如果你没有自动故障转移，这个可以先不配 --><br>    <property><br>        <name>dfs.ha.automatic-failover.enabled</name><br>        <value>true</value><br>    </property><br></configuration><br>修改mapred-site.xml.template名称为mapred-site.xml并修改<br><configuration><br>    <property><br>        <name>mapreduce.framework.name</name><br>        <value>yarn</value><br>    </property><br>    <property><br>        <name>mapreduce.jobhistory.address</name><br>        <value>master:10020</value><br>    </property><br>    <property><br>        <name>mapreduce.jobhistory.webapp.address</name><br>        <value>master:19888</value><br>    </property><br></configuration><br>配置 yarn-site.xml<br><configuration><br>    <property><br>        <name>yarn.nodemanager.aux-services</name><br>        <value>mapreduce_shuffle</value><br>    </property><br>    <!-- Site specific YARN configuration properties --><br>    <!--启用resourcemanager ha--><br>    <!--是否开启RM ha，默认是开启的--><br>    <property><br>       <name>yarn.resourcemanager.ha.enabled</name><br>       <value>true</value><br>    </property><br>    <!--声明两台resourcemanager的地址--><br>    <property><br>       <name>yarn.resourcemanager.cluster-id</name><br>       <value>rmcluster</value><br>    </property><br>    <property><br>       <name>yarn.resourcemanager.ha.rm-ids</name><br>       <value>rm1,rm2</value><br>    </property><br>    <property><br>       <name>yarn.resourcemanager.hostname.rm1</name><br>       <value>master</value><br>    </property><br>    <property><br>       <name>yarn.resourcemanager.hostname.rm2</name><br>       <value>master2</value><br>    </property>  </configuration></p>
+<pre><code>&lt;!--指定zookeeper集群的地址--&gt;   
+&lt;property&gt;  
+   &lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;  
+    &lt;value&gt;slave1:2181,slave2:2181,slave3:2181&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;!--启用自动恢复，当任务进行一半，rm坏掉，就要启动自动恢复，默认是false--&gt;   
+&lt;property&gt;  
+   &lt;name&gt;yarn.resourcemanager.recovery.enabled&lt;/name&gt;  
+   &lt;value&gt;true&lt;/value&gt;  
+&lt;/property&gt;  
+
+&lt;!--指定resourcemanager的状态信息存储在zookeeper集群，默认是存放在FileSystem里面。--&gt;   
+&lt;property&gt;  
+   &lt;name&gt;yarn.resourcemanager.store.class&lt;/name&gt;  
+   &lt;value&gt;org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore&lt;/value&gt;  
+&lt;/property&gt; </code></pre>
+5.配置slaves.xml slave1 ,slave2,slave3
+6.scp hadoop到其他四台机器，拷贝之前删除share/doc文件
+7.分别在master1和master2的yarn-site.xml上添加
+<property>  
+   <name>yarn.resourcemanager.ha.id</name>  
+   <value>rm1</value>  
+</property>
+<property>  
+   <name>yarn.resourcemanager.ha.id</name>  
+   <value>rm2</value>  
+</property>
+8.在slave1,slave2,slave3启动journalnode :sbin/hadoop-daemon.sh start journalnode
+9.master1上格式化namenode:bin/hdfs namenode –format
+
+<p>ps：NameNode主要被用来管理整个分布式文件系统的命名空间(实际上就是目录和文件)的元数据信息，同时为了保证数据的可靠性，还加入了操作日志，所以，NameNode会持久化这些数据(保存到本地的文件系统中)。对于第一次使用HDFS，在启动NameNode时，需要先执行-format命令，然后才能正常启动NameNode节点的服务</p>
+<p>10.master1上启动namenode:sbin/hadoop-daemon.sh start namenode<br>11.在master2上同步master namenode元数据:bin/hdfs namenode -bootstrap Standby<br>12.master2上启动namenode:sbin/hadoop-daemon.sh startnamenode<br>13.此时进入 50070 web页面，两个namenode都是standby状态，这是可以先强制手动是其中一个节点<br>变为active:bin/hdfs haadmin -transitionToActive –forcemanual nn1,此时master1变为active</p>
+<p>PS:上为手工切换active状态。</p>
 
       
 
@@ -272,7 +305,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/09/JVM/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/09/Hadoop搭建/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -286,18 +319,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/07/09/Hadoop搭建/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hadoop搭建
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/07/Hbase/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hbase</div>
+    <a href="/2019/07/09/JVM/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM</div>
       <i class="icon-circle-right"></i>
     </a>
   
