@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="client向RM提交应用程序，其中包括启动该应用的ApplicationMaster的必须信息，例如ApplicationMaster程序、启动ApplicationMaster的命令、用户程序等。 ResourceManager启动一个container用于运行ApplicationMaster。 启动中的ApplicationMaster向ResourceManager注册自己，启动成功">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-09T11:10:22.447Z">
+<meta property="og:updated_time" content="2019-07-11T07:52:23.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Yarn工作流程">
 <meta name="twitter:description" content="client向RM提交应用程序，其中包括启动该应用的ApplicationMaster的必须信息，例如ApplicationMaster程序、启动ApplicationMaster的命令、用户程序等。 ResourceManager启动一个container用于运行ApplicationMaster。 启动中的ApplicationMaster向ResourceManager注册自己，启动成功">
@@ -185,6 +185,7 @@
 <li>应用运行期间，client直接与AM通信获取应用的状态、进度更新等信息。</li>
 <li>应用运行结束后，ApplicationMaster向ResourceManager注销自己，并允许属于它的container被收回。</li>
 </ol>
+<p>Hadoop1与Hadoop2两个框架最大的区别在于原来框架中的JobTracker和TaskTracker不见了，取而代之的是ResourceManager、NodeManager和Application Master三个。<br>即通过Yarn进行资源管理和调度:<br>（1）ResourceManager起到了JobTracker的资源分配的作用，它做的关于作业调度的就只有启动、监控每个作业所属的Application Master，并重启故障的 Application Master。不再负责原来框架中JobTracker的监控、重启每个Task。使得单点故障的影响变得小，恢复更加容易。NodeManager 功能比较专一，就是负责 Container 状态的维护，并向 RM 保持心跳。Application Master 负责一个 Job 生命周期内的所有工作，类似老的框架中 JobTracker。但注意每一个 Job(不是每一种)都有一个 Application Master，它可以运行在 ResourceManager 以外的机器上。<br>（2）新框架将JobTracker的分 离，减少了它的资源消耗，使系统更容易从单点故障中恢复，并且监测每个作业子任务状态的程序分布式化了，更安全。<br>（3）在新框架中，Application Master是可变的，可以为不同的计算框架编写自己的Application Master，使得更多的计算框架可以运行在Hadoop集群上。<br>（4）老的框架中，JobTracker一个很大的负担就是监控job下的tasks的运行状况，现在，这个部分就扔给Application Master做了，而ResourceManager中有一个模块叫ApplicationsManager，它是监测Application Master的运行状况，如果出问题，会将其在其他机器上重启。<br>（5）Container很好地起到了资源隔离的作用，让资源更好地被利用起来。</p>
 
       
 
